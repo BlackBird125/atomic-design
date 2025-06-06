@@ -12,7 +12,7 @@
 4. Templates（テンプレート）
 5. Pages（ページ）
 
-このプロジェクトでは、シンプルなログイン画面を例に、主に Atoms、Molecules、Pages の 3 つの層を実装しています。
+このプロジェクトでは、シンプルなログイン画面を例に、アトミックデザインの全レイヤーを実装しています。
 
 ## プロジェクト構造
 
@@ -20,12 +20,17 @@
 src/
 ├── components/
 │   ├── atoms/
-│   │   ├── TextInput.tsx    // 基本的な入力フィールド
+│   │   ├── TextInput.tsx     // 基本的な入力フィールド
 │   │   └── PrimaryButton.tsx // 基本的なボタン
-│   └── molecules/
-│       └── LoginForm.tsx    // 入力フィールドとボタンを組み合わせたフォーム
+│   ├── molecules/
+│   │   └── LoginForm.tsx     // 入力フィールドとボタンを組み合わせたフォーム
+│   ├── organisms/
+│   │   ├── Header.tsx        // ヘッダー部分
+│   │   └── Footer.tsx        // フッター部分
+│   └── templates/
+│       └── MainTemplate.tsx  // ページの基本レイアウト
 └── pages/
-    └── LoginPage.tsx       // ログインページ全体
+    └── LoginPage.tsx        // ログインページ全体
 ```
 
 ## コンポーネント階層
@@ -54,7 +59,33 @@ Atoms を組み合わせた機能単位：
   <LoginForm onSubmit={handleLogin} />
   ```
 
-### 3. Pages（ページ）
+### 3. Organisms（有機体）
+
+特定のドメインに特化した機能を持つ複雑なコンポーネント：
+
+- **Header**
+
+  ```tsx
+  <Header isLoggedIn={true} onLogout={handleLogout} />
+  ```
+
+- **Footer**
+  ```tsx
+  <Footer />
+  ```
+
+### 4. Templates（テンプレート）
+
+ページのレイアウトを定義：
+
+- **MainTemplate**
+  ```tsx
+  <MainTemplate isLoggedIn={isLoggedIn} onLogout={handleLogout}>
+    {children}
+  </MainTemplate>
+  ```
+
+### 5. Pages（ページ）
 
 完全なページを構成：
 
@@ -116,7 +147,19 @@ npm start
    - 状態管理の実装
    - イベントハンドリング
 
-3. **Pages（ページ）レベルの設計**
+3. **Organisms（有機体）レベルの設計**
+
+   - 特定のドメインに特化した機能
+   - 複数の Molecules の組み合わせ
+   - 独立して機能する複雑なコンポーネント
+
+4. **Templates（テンプレート）レベルの設計**
+
+   - ページレイアウトの定義
+   - 共通のページ構造の提供
+   - レスポンシブデザインの実装
+
+5. **Pages（ページ）レベルの設計**
    - レイアウトの定義
    - ページ全体の状態管理
    - ビジネスロジックの実装
