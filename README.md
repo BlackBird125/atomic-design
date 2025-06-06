@@ -1,46 +1,153 @@
-# Getting Started with Create React App
+# アトミックデザインによる React コンポーネント設計
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+このプロジェクトは、アトミックデザインの原則に基づいて React コンポーネントを設計・実装する方法を学ぶためのサンプルアプリケーションです。
 
-## Available Scripts
+## アトミックデザインとは
 
-In the project directory, you can run:
+アトミックデザインは、UI コンポーネントを以下の 5 つの階層に分類する設計手法です：
 
-### `npm start`
+1. Atoms（原子）
+2. Molecules（分子）
+3. Organisms（有機体）
+4. Templates（テンプレート）
+5. Pages（ページ）
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+このプロジェクトでは、シンプルなログイン画面を例に、主に Atoms、Molecules、Pages の 3 つの層を実装しています。
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## プロジェクト構造
 
-### `npm test`
+```
+src/
+├── components/
+│   ├── atoms/
+│   │   ├── TextInput.tsx    // 基本的な入力フィールド
+│   │   └── PrimaryButton.tsx // 基本的なボタン
+│   └── molecules/
+│       └── LoginForm.tsx    // 入力フィールドとボタンを組み合わせたフォーム
+└── pages/
+    └── LoginPage.tsx       // ログインページ全体
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## コンポーネント階層
 
-### `npm run build`
+### 1. Atoms（原子）
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+最小単位の UI コンポーネント：
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **TextInput**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  ```tsx
+  <TextInput label="ユーザー名" value={username} onChange={handleChange} />
+  ```
 
-### `npm run eject`
+- **PrimaryButton**
+  ```tsx
+  <PrimaryButton onClick={handleClick}>ログイン</PrimaryButton>
+  ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### 2. Molecules（分子）
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Atoms を組み合わせた機能単位：
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- **LoginForm**
+  ```tsx
+  <LoginForm onSubmit={handleLogin} />
+  ```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### 3. Pages（ページ）
 
-## Learn More
+完全なページを構成：
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **LoginPage**
+  ```tsx
+  <LoginPage />
+  ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 技術スタック
+
+- React 18
+- TypeScript
+- Material-UI (MUI)
+- アトミックデザイン
+
+## セットアップ方法
+
+1. 依存パッケージのインストール:
+
+```bash
+npm install
+```
+
+2. 開発サーバーの起動:
+
+```bash
+npm start
+```
+
+アプリケーションは http://localhost:3000 で起動します。
+
+## アトミックデザインの利点
+
+1. **再利用性**
+
+   - 小さなコンポーネントを組み合わせて大きなコンポーネントを作成
+   - 共通の UI パーツを効率的に管理
+
+2. **保守性**
+
+   - 責任範囲が明確
+   - コンポーネントの依存関係が分かりやすい
+
+3. **開発効率**
+   - コンポーネントの役割が明確
+   - チーム開発での共通理解が容易
+
+## 実装のポイント
+
+1. **Atoms（原子）レベルの設計**
+
+   - 最小限の機能に限定
+   - 汎用的な使用が可能
+   - props による柔軟なカスタマイズ
+
+2. **Molecules（分子）レベルの設計**
+
+   - 特定の目的のための機能単位
+   - 状態管理の実装
+   - イベントハンドリング
+
+3. **Pages（ページ）レベルの設計**
+   - レイアウトの定義
+   - ページ全体の状態管理
+   - ビジネスロジックの実装
+
+## 学習ポイント
+
+1. **コンポーネントの分割基準**
+
+   - 単一責任の原則
+   - 再利用性の考慮
+   - 適切な粒度の決定
+
+2. **型定義**
+
+   - インターフェースの設計
+   - プロップスの型安全性
+   - 再利用可能な型定義
+
+3. **状態管理**
+   - 適切なレベルでの状態管理
+   - プロップスバケツリレーの防止
+   - イベントハンドリングの設計
+
+## 注意点
+
+- コンポーネントの責任範囲を明確に
+- 過度な分割は避ける
+- 適切な粒度でのコンポーネント設計を心がける
+
+## 参考リンク
+
+- [Atomic Design by Brad Frost](https://bradfrost.com/blog/post/atomic-web-design/)
+- [Material-UI Documentation](https://mui.com/)
+- [React Documentation](https://react.dev/)
